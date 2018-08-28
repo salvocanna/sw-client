@@ -1,28 +1,28 @@
-import App from './Components/App';
-import Home from './Components/Home';
-import createStore from './store';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
-import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import App from './components/App';
+import createStore from './store';
+import './index.css';
+import rootSaga from 'sagas';
+import ReactDOM from 'react-dom';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+
+const store = createStore();
+
+store.runSaga(rootSaga);
 
 const routes = (
-	<Provider store={createStore()}>
+	<Provider store={store}>
 		<Router>
-			<App>
-				<Switch>
-					<Route
-						component={Home}
-						exact
-						path={'/'}
-					/>
-				</Switch>
-			</App>
+			<Route
+				component={App}
+				exact
+				path={'/'}
+			/>
 		</Router>
 	</Provider>
 );
 
+// eslint-disable-next-line no-undef
 ReactDOM.render(routes, document.getElementById('root'));

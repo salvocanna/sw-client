@@ -1,19 +1,27 @@
-import { getRoots } from './api';
-import {
-	FETCH_ROOTS,
-	FETCH_ROOTS_FAILURE,
-	FETCH_ROOTS_SUCCESS,
-} from './constants';
+import * as types from './constants';
 
-export const fetchRoots = () => {
-	return dispatch => {
-		dispatch({ type: FETCH_ROOTS });
+export const fetchRoots = () => ({
+	type: types.FETCH_ROOTS,
+});
 
-		const request = getRoots();
+export const fetchRoot = type => ({
+	type: types.FETCH_ROOTS,
+	payload: type,
+});
 
-		return request.then(
-			resp => dispatch({ type: FETCH_ROOTS_SUCCESS, payload: resp }),
-			error => dispatch({ type: FETCH_ROOTS_FAILURE, payload: error }),
-		);
-	};
-}
+export const selectRoot = root => ({
+	type: types.ROOT_SELECT,
+	root,
+});
+
+export const selectResource = ({ root, resource }) => ({
+	type: types.RESOURCE_SELECT,
+	root,
+	resource,
+});
+
+export const starResourceToggle = ({ root, resource }) => ({
+	type: types.STAR_RESOURCE_TOGGLE,
+	root,
+	resource,
+});
